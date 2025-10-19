@@ -51,7 +51,7 @@ func OpenCollection(collectionName string) *mongo.Collection {
 
 	collection := Client.Database(databaseName).Collection(collectionName)
 
-	if collection != nil {
+	if collection == nil {
 		return nil
 	}
 
