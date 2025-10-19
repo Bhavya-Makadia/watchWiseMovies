@@ -10,7 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
-func Connect() *mongo.Client {
+func DBInstance() *mongo.Client {
 	err := godotenv.Load(".env")
 
 	if err != nil {
@@ -36,7 +36,7 @@ func Connect() *mongo.Client {
 	return client
 }
 
-var Client *mongo.Client = Connect()
+var Client *mongo.Client = DBInstance()
 
 func OpenCollection(collectionName string) *mongo.Collection {
 	err := godotenv.Load(".env")
