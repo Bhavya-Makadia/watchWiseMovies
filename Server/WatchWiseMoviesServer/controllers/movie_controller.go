@@ -3,17 +3,20 @@ package controllers
 import (
 	"context"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/Bhavya-Makadia/WatchWiseMovies/Server/WatchWiseMoviesServer/database"
 	"github.com/Bhavya-Makadia/WatchWiseMovies/Server/WatchWiseMoviesServer/models"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
 var movieCollection *mongo.Collection = database.OpenCollection("movies")
+var rankingCollection *mongo.Collection = database.OpenCollection("rankings")
 
 var validate = validator.New()
 
@@ -92,4 +95,76 @@ func AddMovie() gin.HandlerFunc {
 
 		c.JSON(http.StatusCreated, result)
 	}
+}
+
+func AdminReviewUpdate() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		movieId := c.Param("imdb_id")
+
+		if movieId == "" {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Movie Id required"})
+			return
+		}
+
+		var req struct {
+			AdminReview string `json:"admin_review"`
+		}
+
+		var resp struct {
+			RankingName string `'json:"ranking_name"`
+			AdminReview string `json:"admin_review"`
+		}
+
+		if err := c.ShouldBind(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
+			return
+		}
+
+	}
+}
+
+func GetReviewRanking(admin_review string) (string, int, error) {
+	rankings, err := GetRankings()
+
+	if err != nil {
+		return "", 0, err
+	}
+
+	sentimentDelimited := ""
+
+	for _, ranking := range rankings {
+		if ranking.RankingValue != 999 {
+			sentimentDelimited = sentimentDelimited + ranking.RankingName + ","
+		}
+	}
+
+	sentimentDelimited = strings.Trim(sentimentDelimited, ",")
+
+	err = godotenv.Load(".env")
+
+	if err != nil {
+
+	}
+
+}
+
+func GetRankings() ([]models.Ranking, error) {
+	var rankings []models.Ranking
+
+	var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+	defer cancel()
+
+	cursor, err := rankingCollection.Find(ctx, bson.M{})
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer cursor.Close(ctx)
+
+	if err := cursor.All(ctx, &rankings); err != nil {
+		return nil, err
+	}
+
+	return rankings, nil
 }
