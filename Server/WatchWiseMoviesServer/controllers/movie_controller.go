@@ -313,11 +313,11 @@ func GetUsersFavouriteGenres(userId string) ([]string, error) {
 	var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 	defer cancel()
 
-	filter := bson.M{"user_id": userId}
+	filter := bson.D{{Key: "user_id", Value: userId}}
 
 	projection := bson.M{
 		"favourite_genres.genre_name": 1,
-		"id":                          0,
+		"_id":                         0,
 	}
 
 	opts := options.FindOne().SetProjection(projection)

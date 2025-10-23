@@ -133,7 +133,7 @@ func ValidateToken(tokenString string) (*SignedDetails, error) {
 }
 
 func GetUserIdFromContext(c *gin.Context) (string, error) {
-	userId, exists := c.Get("userid")
+	userId, exists := c.Get("userId")
 
 	if !exists {
 		return "", errors.New("user ID does not exists in this context")
