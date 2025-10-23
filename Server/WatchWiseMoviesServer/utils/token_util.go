@@ -98,13 +98,13 @@ func UpdateAllTokens(user_id, token, refreshToken string) error {
 func GetAccessToken(c *gin.Context) (string, error) {
 	authHeader := c.Request.Header.Get("Authorization")
 	if authHeader == "" {
-		return "", errors.New("Authorization header is required")
+		return "", errors.New("authorization header is required")
 	}
 
 	tokenString := authHeader[len("Bearer "):]
 
 	if tokenString == "" {
-		return "", errors.New("Bearer token is required")
+		return "", errors.New("bearer token is required")
 	}
 
 	return tokenString, nil
