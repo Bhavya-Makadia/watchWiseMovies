@@ -3,6 +3,7 @@ package controllers
 import (
 	"context"
 	"errors"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -106,6 +107,19 @@ func AddMovie() gin.HandlerFunc {
 
 func AdminReviewUpdate() gin.HandlerFunc {
 	return func(c *gin.Context) {
+
+		role, err := utils.GetRoleFromContext(c)
+
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "role not found in context"})
+			return
+		}
+
+		if role != "ADMIN" {
+			c.JSON(http.StatusBadGateway, gin.H{"error": "user must be part of the admin role"})
+			return
+		}
+
 		movieId := c.Param("imdb_id")
 
 		if movieId == "" {
@@ -128,7 +142,7 @@ func AdminReviewUpdate() gin.HandlerFunc {
 		}
 
 		sentiment, rankVal, err := GetReviewRanking(req.AdminReview)
-
+		fmt.Printf("req :%v, sentiment:%v, rankval:%v, err:%v \n", req.AdminReview, sentiment, rankVal, err)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error in getting review ranking"})
 			return
