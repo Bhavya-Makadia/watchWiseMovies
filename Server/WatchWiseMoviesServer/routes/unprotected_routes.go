@@ -3,12 +3,13 @@ package routes
 import (
 	controller "github.com/Bhavya-Makadia/WatchWiseMovies/Server/WatchWiseMoviesServer/controllers"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
-func SetupUnProtectedRoutes(router *gin.Engine) {
+func SetupUnProtectedRoutes(router *gin.Engine, client *mongo.Client) {
 
-	router.GET("/movies", controller.GetMovies())
-	router.POST("/register", controller.RegisterUser())
-	router.POST("/login", controller.LoginUser())
+	router.GET("/movies", controller.GetMovies(client))
+	router.POST("/register", controller.RegisterUser(client))
+	router.POST("/login", controller.LoginUser(client))
 
 }
