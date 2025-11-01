@@ -15,14 +15,14 @@ const Review = () => {
     const { imdb_id } = useParams();
     const {auth,setAuth} = useAuth();
     const axiosPrivate = useAxiosPrivate();
-console.log('Reveiew movie', movie)
+
     useEffect(() => {
         const fetchMovie = async () => {
             setLoading(true);
             try {
                 const response = await axiosPrivate.get(`/movie/${imdb_id}`);
                 setMovie(response.data);
-                console.log('Review ==> ',response.data);
+                // console.log('Review ==> ',response.data);
             } catch (error) {
                 console.error('Error fetching movie:', error);
             } finally {
