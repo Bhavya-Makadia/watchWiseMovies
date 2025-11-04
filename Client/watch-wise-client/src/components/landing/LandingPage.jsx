@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from "react";
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import BgClip from './BgClip.mp4'
 import BgClipCompressed from './BgClipSmallExtraCompressed.webm'
 
 const MP4_VIDEO_URL = "https://drive.google.com/file/d/116wQIfx1BLLIbN9y42ZK3I7tM2c9DCkN/view?usp=drive_link"; 
