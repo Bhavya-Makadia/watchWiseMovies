@@ -3,7 +3,7 @@ import { useRef,useEffect,useState } from 'react';
 import {useParams} from 'react-router-dom'
 //import axiosPrivate from '../../api/axiosPrivateConfig';
 import Spinner from '../spinner/Spinner';
-import Movie from '../movie/movie';
+import Movie from '../movie/Movie';
 import useAxiosPrivate from '../../hook/useAxiosPrivate';
 import useAuth from '../../hook/useAuth';
 
