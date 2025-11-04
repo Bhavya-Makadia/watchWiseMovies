@@ -2,8 +2,12 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 import useAuth from "../hook/useAuth";
 
 const RequiredAuth = () => {
-    const {auth} = useAuth();
+    const {auth, loading} = useAuth();
     const location = useLocation();
+
+    if (loading){
+        return (<Spinner/>)
+    }
 
     return auth ? (
         <Outlet/>
