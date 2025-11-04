@@ -11,6 +11,7 @@ import Review from './components/review/Review'
 import useAuth from './hook/useAuth'
 import axiosClient from './api/axiosConfig'
 import StreamMovie from './components/stream/StreamMovie'
+import LandingPage from './components/landing/LandingPage'
 
 function App() {
 
@@ -39,9 +40,12 @@ function App() {
 
   return (
     <>
-      <Header handleLogout={handleLogout}/>
-      <Routes path='/' element = {<Layout />}>
-        <Route path="/" element={<Home updateMovieReview={updateMovieReview}/>}/>
+      {window.location.pathname !== "/" && <Header handleLogout={handleLogout} />}
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+      
+      <Route element = {<Layout />}>
+        <Route path="/home" element={<Home updateMovieReview={updateMovieReview}/>}/>
         <Route path="/register" element={<Register />}/>
         <Route path="/login" element={<Login />}/>
         <Route element = {<RequiredAuth/>}>
@@ -49,6 +53,7 @@ function App() {
           <Route path='/review/:imdb_id' element={<Review/>}/>
           <Route path="/stream/:yt_id" element={<StreamMovie/>}/>
         </Route>
+      </Route>
       </Routes>
       
     </>

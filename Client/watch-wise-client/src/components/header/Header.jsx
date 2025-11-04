@@ -14,13 +14,16 @@ const Header = ({handleLogout}) => {
         <Navbar bg="dark" variant="dark" expand="lg" className="shadow-sm">
             <Container>
                 <Navbar.Brand>
-                    Watch Wise
+                    <Nav.Link as = {NavLink} to="/">
+                            Watch Wise
+                        </Nav.Link>
+                    
                 </Navbar.Brand>
             
                 <Navbar.Toggle aria-controls="main-navbar-nav" />
                 <Navbar.Collapse>
                     <Nav className="me-auto">
-                        <Nav.Link as = {NavLink} to="/">
+                        <Nav.Link as = {NavLink} to="/home">
                             Home
                         </Nav.Link>
                         <Nav.Link as = {NavLink} to="/recommended">
