@@ -1,6 +1,10 @@
 import { useRef, useState, useEffect } from "react";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import BgClip from './BgClip.mp4'
+import BgClipCompressed from './BgClipSmallExtraCompressed.webm'
+
+const MP4_VIDEO_URL = "https://drive.google.com/file/d/116wQIfx1BLLIbN9y42ZK3I7tM2c9DCkN/view?usp=drive_link"; 
+const WEBM_VIDEO_URL = "https://drive.google.com/file/d/11bv8cNVAOdu4eLFh2P0yHfFd1Nb1Za2b/view?usp=sharing";
 
 const LandingPage = () => {
   const techStack = [
@@ -107,7 +111,9 @@ const LandingPage = () => {
           playsInline
           className="position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
         >
-          <source src={BgClip} type="video/mp4" />
+          <source src={MP4_VIDEO_URL} type="video/mp4" />
+          <source src={WEBM_VIDEO_URL} type="video/mp4" />
+          <source src={BgClipCompressed} type="video/mp4" />
         </video>
 
         {/* Dark overlay for readability */}
